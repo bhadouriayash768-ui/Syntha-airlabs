@@ -1,11 +1,15 @@
 /** Luminous Systems Atelier: pearl space, charcoal editorial contrast, Aurelis Gold depth, asymmetric plates, and calm pointer-responsive layers. */
+/** Syntha Airlabs page: celestial editorial design with focused, progressive text motion—not competing effects. */
 import { ArrowDownRight, ArrowRight, ArrowUpRight, Check, CircleDot, MoveUpRight, Sparkles, Volume2, VolumeX } from "lucide-react";
 import { PointerEvent, useCallback, useEffect, useRef, useState } from "react";
+import BlurText from "@/components/BlurText";
 import DepthText from "@/components/DepthText";
 import FallingText from "@/components/FallingText";
+import FoldText from "@/components/FoldText";
+import ScrollFloat from "@/components/ScrollFloat";
+import StarBorder from "@/components/StarBorder";
 import TextPressure from "@/components/TextPressure";
 import { orbitalMark } from "@/lib/brand";
-import { guardianEmbedded } from "@/lib/guardianEmbedded";
 
 const SERVICES = [
   {
@@ -48,8 +52,18 @@ function SectionLabel({ index, label }: { index: string; label: string }) {
 export default function Home() {
   const heroRef = useRef<HTMLElement>(null);
   const audioContextRef = useRef<AudioContext | null>(null);
-  const [introState, setIntroState] = useState<"enter" | "exit" | "gone">("enter");
   const [soundEnabled, setSoundEnabled] = useState(false);
+  const [introState, setIntroState] = useState<"show" | "leaving" | "gone">("show");
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setIntroState("gone");
+      return undefined;
+    }
+    const leaveTimer = window.setTimeout(() => setIntroState("leaving"), 1120);
+    const removeTimer = window.setTimeout(() => setIntroState("gone"), 1660);
+    return () => { window.clearTimeout(leaveTimer); window.clearTimeout(removeTimer); };
+  }, []);
 
   const playSignatureChime = useCallback(() => {
     if (!window.AudioContext) return;
@@ -87,21 +101,6 @@ export default function Home() {
     else playSignatureChime();
     setSoundEnabled(true);
   };
-
-  useEffect(() => {
-    const mobile = window.matchMedia("(max-width: 760px)").matches;
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!mobile || reducedMotion) {
-      setIntroState("gone");
-      return undefined;
-    }
-    const exitTimer = window.setTimeout(() => setIntroState("exit"), 1120);
-    const removeTimer = window.setTimeout(() => setIntroState("gone"), 1720);
-    return () => {
-      window.clearTimeout(exitTimer);
-      window.clearTimeout(removeTimer);
-    };
-  }, []);
 
   useEffect(() => {
     const targets = Array.from(document.querySelectorAll<HTMLElement>(".mobile-reveal"));
@@ -154,20 +153,16 @@ export default function Home() {
   };
 
   return (
-    <main className={`site-shell ${introState !== "gone" ? "site-shell--intro-active" : ""}`}>
+    <main className="site-shell">
       {introState !== "gone" && (
-        <div className={`mobile-intro mobile-intro--${introState}`} aria-hidden="true">
-          <div className="mobile-intro__content">
-            <span className="mobile-intro__eyebrow">Independent digital studio</span>
-            <img src={orbitalMark} alt="" className="mobile-intro__mark" />
-            <strong>SYNTHA<span>/</span>AIRLABS</strong>
-            <i className="mobile-intro__rule" />
-            <span className="mobile-intro__caption">Clarity, form, forward.</span>
-          </div>
-        </div>
+        <button type="button" className={`clarity-opening clarity-opening--${introState}`} onClick={() => setIntroState("gone")} aria-label="Skip opening animation">
+          <span className="clarity-opening__card"><img src="/guardian.webp" alt="" /></span>
+          <strong>Clarity opens.</strong>
+          <span className="clarity-opening__hint">Tap to enter</span>
+        </button>
       )}
       <section
-        className="hero"
+        className="hero hero--angel"
         id="top"
         ref={heroRef}
         onPointerMove={updateHeroField}
@@ -180,7 +175,7 @@ export default function Home() {
         <div className="hero__pointer-bloom" aria-hidden="true" />
         <img
           className="hero__guardian"
-          src={guardianEmbedded}
+          src="/guardian.webp"
           alt="A celestial guardian in pearl-white drapery, crowned in gold and framed by feathered wings"
           loading="eager"
           fetchPriority="high"
@@ -197,7 +192,7 @@ export default function Home() {
             <a href="#approach">Our method</a>
             <a href="#contact">Contact</a>
           </nav>
-          <a className="button button--light site-nav__cta" href="#contact">
+          <a className="button button--light site-nav__cta cursor-target spark-zone" href="#contact">
             Let&apos;s talk <ArrowUpRight size={16} strokeWidth={1.8} />
           </a>
         </header>
@@ -215,8 +210,8 @@ export default function Home() {
               Syntha Airlabs builds clear, high-performing websites that help ambitious businesses look credible, reach more people, and move with confidence.
             </p>
             <div className="hero__actions reveal-four">
-              <a className="button button--dark" href="#contact">Start a project <ArrowUpRight size={18} strokeWidth={1.8} /></a>
-              <a className="text-link" href="#services">See how I help <ArrowDownRight size={17} strokeWidth={1.6} /></a>
+              <a className="button button--dark cursor-target spark-zone" href="#contact">Start a project <ArrowUpRight size={18} strokeWidth={1.8} /></a>
+              <a className="text-link cursor-target" href="#services">See how I help <ArrowDownRight size={17} strokeWidth={1.6} /></a>
             </div>
             <div className="hero__micro reveal-four"><CircleDot size={13} /> Thoughtful design. Dependable build.</div>
           </div>
@@ -259,7 +254,7 @@ export default function Home() {
         <div className="statement__grid">
           <p className="statement__kicker">Made for real life</p>
           <div className="statement__heading-wrap">
-            <h2>We build websites that help your business get</h2>
+            <ScrollFloat containerClassName="statement__float" textClassName="statement__float-text" animationDuration={0.72} stagger={0.013}>We build websites that help your business get</ScrollFloat>
             <FallingText text="seen and chosen" highlightWords={["seen"]} trigger="hover" gravity={0.42} fontSize="clamp(2.9rem, 5.2vw, 6.25rem)" className="statement__gravity" />
           </div>
           <div className="statement__body">
@@ -290,9 +285,9 @@ export default function Home() {
         <div className="process__top">
           <div>
             <p className="statement__kicker">From friction to flow</p>
-            <h2>Your website should make it easier to <em>say yes.</em></h2>
+            <ScrollFloat containerClassName="process__float" textClassName="process__float-text" animationDuration={0.7} stagger={0.012}>Your website should make it easier to say yes.</ScrollFloat>
           </div>
-          <p>Whether you are starting a new business or improving an existing one, the process starts with your offer, your audience, and what growth means in practice.</p>
+          <BlurText text="Whether you are starting a new business or improving an existing one, the process starts with your offer, your audience, and what growth means in practice." delay={52} className="process__blur-copy" />
         </div>
         <div className="process__grid">
           <figure className="process__image-wrap">
@@ -305,7 +300,7 @@ export default function Home() {
               <span className="process__diagram-dot" />
               <span className="process__diagram-label">Focus / form / forward</span>
             </div>
-            <figcaption>Focus the signal. Shape the system.</figcaption>
+            <figcaption>Touch the surface. Focus the signal. Shape the system.</figcaption>
           </figure>
           <ol className="process-list">
             {PROCESS.map(([number, title, detail]) => (
@@ -322,7 +317,7 @@ export default function Home() {
       <section className="promise section-shell mobile-reveal">
         <div className="promise__rule" />
         <p className="statement__kicker">Built to grow</p>
-        <blockquote>“Your website should work as hard as you do.”</blockquote>
+        <ScrollFloat as="blockquote" containerClassName="promise__float" textClassName="promise__float-text" animationDuration={0.82} stagger={0.014}>“Your website should work as hard as you do.”</ScrollFloat>
         <a href="#contact" className="text-link">Talk through an idea <ArrowDownRight size={17} /></a>
       </section>
 
@@ -333,10 +328,10 @@ export default function Home() {
           <SectionLabel index="03" label="Start a conversation" />
           <div className="contact__content">
             <p className="statement__kicker">Ready to shape what comes next?</p>
-            <h2>Let&apos;s make your next move <em>clear.</em></h2>
+            <h2><FoldText text="Let's make your next move" splitBy="word" hinge="top" trigger="scroll" duration={0.55} stagger={0.055} /><em><FoldText text="clear." splitBy="word" hinge="bottom" trigger="scroll" duration={0.55} stagger={0.055} /></em></h2>
             <p className="contact__lead">Tell Syntha Airlabs about the digital presence you need. Together, we can turn the right idea into a clear, professional online system built for momentum.</p>
             <div className="contact__actions">
-              <a className="button button--gold" href="https://mail.google.com/mail/?view=cm&fs=1&to=synthaairlabs@gmail.com&su=Syntha%20Airlabs%20enquiry" target="_blank" rel="noreferrer">Email Syntha Airlabs <ArrowUpRight size={18} /></a>
+              <a className="contact__gmail cursor-target spark-zone" href="https://mail.google.com/mail/?view=cm&fs=1&to=synthaairlabs@gmail.com&su=Syntha%20Airlabs%20enquiry" target="_blank" rel="noreferrer"><StarBorder>Email Syntha Airlabs <ArrowUpRight size={18} /></StarBorder></a>
               <a className="contact__email" href="mailto:synthaairlabs@gmail.com">synthaairlabs@gmail.com</a>
             </div>
           </div>
