@@ -1,11 +1,11 @@
 # Deploy this Flat Package to Vercel
 
-> **Use this package instead of the earlier ZIP.** Its top level is the Vercel project root: `package.json`, `vercel.json`, `vite.config.ts`, and `client/` are immediately visible after extraction.
+> **Use this package instead of the earlier ZIP.** Its top level is the Syntha Airlabs Vercel project root: `package.json`, `vercel.json`, `vite.config.ts`, and `client/` are immediately visible after extraction.
 
 ## Exact steps
 
 1. Create a **new empty GitHub repository**. Do not place the files inside another folder.
-2. Extract `ayash-vercel-flat-root.zip` and upload **its contents** to the repository root. On GitHub, you should see `package.json` at the top level.
+2. Extract `syntha-airlabs-vercel-root.zip` and upload **its contents** to the repository root. On GitHub, you should see `package.json` at the top level.
 3. In Vercel, choose **Add New → Project** and import that repository.
 4. On the import screen, leave **Root Directory** empty. Do not enter `aurelis-vpn-landing`.
 5. If the fields are shown, enter the following values:

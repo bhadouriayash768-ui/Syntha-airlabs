@@ -49,4 +49,52 @@
 
 - [x] Produce a ZIP whose top level is directly the Vercel project root.
 - [x] Add a minimal root-level deployment guide with the exact import settings.
-- [ ] Verify the flattened ZIP contains `package.json`, `vercel.json`, and Vite source files at its top level.
+- [x] Verify the flattened ZIP contains `package.json`, `vercel.json`, and Vite source files at its top level.
+
+## Direct Vercel Deployment Diagnosis
+
+- [x] Inspect the public Vercel response and available deployment information.
+- [x] Identify whether the project lacks an active production deployment, has a domain-alias issue, or requires a Vercel setting correction.
+- [x] Provide the smallest exact set of steps to restore the deployment URL.
+
+## Syntha Airlabs Rebrand
+
+- [x] Locate every visible Ayash / Dev reference and old portfolio-specific sentence.
+- [x] Replace the interface, page title, metadata, and deployment guide branding with Syntha Airlabs.
+- [x] Build, check the updated public site, and package the rebrand for the existing Vercel repository.
+
+## Gmail Contact Update
+
+- [x] Set the final contact button and visible address to synthaairlabs@gmail.com.
+- [x] Verify the mailto action and save the update.
+
+## Mobile Motion Update
+
+- [x] Add a touch-driven hero response with a visible ambient motion cue.
+- [x] Add scroll-triggered reveals for key content sections on mobile.
+- [x] Ensure gravity text has a reliable tap-to-play action and replay affordance.
+- [x] Check mobile motion and performance, then save the update.
+
+## Cinematic Mobile Load Transition
+
+- [x] Add a short Syntha Airlabs introduction overlay before the first hero view.
+- [x] Hand off to the hero cleanly and skip the animation for reduced-motion users.
+- [x] Review the mobile loading moment and production build, then save the update.
+
+## Cinematic Load Sound
+
+- [x] Add a lightweight synthesized chime that can only start after a visitor enables sound.
+- [x] Add a clear sound control to the loading moment and preserve reduced-motion silence.
+- [x] Verify the sound interaction and production build, then save the update.
+
+## Main Branch Redeploy
+
+- [ ] Confirm the active branch and configured Git remote.
+- [ ] Commit the completed Syntha Airlabs changes to `main`.
+- [ ] Push `main` to the connected remote and confirm the Vercel redeploy trigger.
+
+## Latest Deployment ZIP
+
+- [ ] Build the current Syntha Airlabs project for Vercel one final time.
+- [ ] Create a flat ZIP with the latest source, configuration, and deployment guide.
+- [ ] Verify the ZIP root and deliver the file.

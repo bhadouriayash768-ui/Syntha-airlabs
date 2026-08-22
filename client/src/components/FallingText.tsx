@@ -23,7 +23,8 @@ export default function FallingText({
   const containerRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLDivElement>(null);
-  const [started, setStarted] = useState(false);
+  const [runId, setRunId] = useState(0);
+  const started = runId > 0;
   const words = text.split(" ");
 
   useEffect(() => {
@@ -86,11 +87,11 @@ export default function FallingText({
       World.clear(engine.world, false);
       Engine.clear(engine);
     };
-  }, [gravity, started]);
+  }, [gravity, runId]);
 
-  const start = () => { if (!started) setStarted(true); };
+  const start = () => { setRunId((value) => value + 1); };
   const handleKey = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if ((event.key === "Enter" || event.key === " ") && !started) { event.preventDefault(); start(); }
+    if (event.key === "Enter" || event.key === " ") { event.preventDefault(); start(); }
   };
 
   return (
@@ -102,13 +103,13 @@ export default function FallingText({
       onKeyDown={handleKey}
       role="button"
       tabIndex={0}
-      aria-label={`${text}. Hover or press Enter to play with the words.`}
+      aria-label={`${text}. Hover, tap, or press Enter to play and replay the words.`}
     >
-      <div ref={textRef} className="falling-text__target" style={{ fontSize }}>
+      <div key={runId} ref={textRef} className="falling-text__target" style={{ fontSize }}>
         {words.map((word, index) => <span className={`falling-text__word ${highlightWords.includes(word.replace(/[,.]/g, "")) ? "falling-text__word--highlight" : ""}`} key={`${word}-${index}`}>{word}</span>)}
       </div>
       <div ref={canvasRef} className="falling-text__canvas" aria-hidden="true" />
-      {!started && <span className="falling-text__hint">Hover or tap to move the words</span>}
+      <span className="falling-text__hint">{started ? "Tap to replay" : "Hover or tap to move the words"}</span>
     </div>
   );
 }

@@ -1,4 +1,4 @@
-# Deploying Ayash / Dev to Vercel
+# Deploying Syntha Airlabs to Vercel
 
 This package is prepared as a **static Vite site** and does not require a database, server secret, or custom environment variable.
 
