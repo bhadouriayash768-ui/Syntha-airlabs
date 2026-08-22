@@ -1,0 +1,34 @@
+{
+  "build_command": "pnpm run build",
+  "capabilities": [],
+  "dev_command": "pnpm run dev",
+  "env_vars": {},
+  "experiments": null,
+  "git_remote": {
+    "repo_url": "https://7f0548f6b28a1758d9bf7be630d36cb4.artifacts.cloudflare.net/git/prod/ekqmzqvZQLzCfrHs6MmaCv.git",
+    "expiration": "2026-08-23T08:40:33.675Z",
+    "token": "art_v2_x_7a4c012b86d006f4221909c2baf8db886fde44b3?expires=1787474433",
+    "backend": "GIT_BACKEND_ARTIFACTS"
+  },
+  "name": "aurelis-vpn-landing",
+  "path": "/home/ubuntu/aurelis-vpn-landing",
+  "port": 3000,
+  "secrets": {
+    "BUILT_IN_FORGE_API_KEY": "HRiD7t6d32KTizADEbLcb6",
+    "BUILT_IN_FORGE_API_URL": "https://forge.manus.ai",
+    "JWT_SECRET": "DyxXy2JrurKqhNRvxei3Zw",
+    "OAUTH_SERVER_URL": "https://api.manus.im",
+    "OWNER_NAME": "Yash",
+    "OWNER_OPEN_ID": "XbxfBDhfkrgiT55ouNr8a6",
+    "VITE_ANALYTICS_ENDPOINT": "https://manus-analytics.com",
+    "VITE_ANALYTICS_WEBSITE_ID": "1ee50ae6-f659-4513-853d-61138a0b6d53",
+    "VITE_APP_ID": "ekqmzqvZQLzCfrHs6MmaCv",
+    "VITE_APP_LOGO": "",
+    "VITE_APP_TITLE": "Aurelis VPN — Private by Design",
+    "VITE_FRONTEND_FORGE_API_KEY": "NEvhN7bGypcUKJo8BqBrND",
+    "VITE_FRONTEND_FORGE_API_URL": "https://forge.manus.ai",
+    "VITE_OAUTH_PORTAL_URL": "https://manus.im"
+  },
+  "template_id": "web-static",
+  "test_command": "pnpm test"
+}
